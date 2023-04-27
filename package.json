@@ -1,0 +1,23 @@
+{
+  "name": "bdu-sims-api",
+  "version": "1.0.0",
+  "description": "An API for BDU SIMS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dagimg-dot/bdu-sims-api.git"
+  },
+  "author": "dagimg-dot",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dagimg-dot/bdu-sims-api/issues"
+  },
+  "homepage": "https://github.com/dagimg-dot/bdu-sims-api#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "puppeteer": "^19.11.1"
+  }
+}
