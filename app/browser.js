@@ -12,7 +12,7 @@ class Browser {
   }
 
   async init() {
-    Browser.instance = await puppeteer.launch({ headless: false });
+    Browser.instance = await puppeteer.launch({ headless: "new" });
   }
 
   async close() {
