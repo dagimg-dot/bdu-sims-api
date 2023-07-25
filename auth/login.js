@@ -1,31 +1,57 @@
-const puppeteer = require("puppeteer");
-// const Browser = require("./browser");
+const jwt = require("jsonwebtoken");
+const dotenv = require("dotenv");
+dotenv.config();
 
-const login = async (credentials) => {
-  // const browser = await Browser.getInstance();
-  const browser = await puppeteer.launch({ headless: "new" });
-  const page = await browser.newPage();
+const logger = require("../logger/logger");
+const getIPAddress = require("../utils/ipUtils");
+const s_login = require("../scraper/s_login");
 
-  await page.goto("https://studentinfo.bdu.edu.et/login.aspx");
+const secret_key = process.env.JWT_SECRET;
+const expiresIn = process.env.JWT_EXPIRES_IN;
 
-  const username = await page.$("#dnn_ctr_Login_Login_DNN_txtUsername");
-  await username.type(credentials.username);
+const login = async (request, response) => {
+  logger.info(`Login Page requested from IP Address: ${getIPAddress(request)}`);
 
-  const password = await page.$("#dnn_ctr_Login_Login_DNN_txtPassword");
-  await password.type(credentials.password);
+  try {
+    const username = request.body.username;
+    const password = request.body.password;
 
-  const login = await page.$("#dnn_ctr_Login_Login_DNN_cmdLogin");
-  await login.click();
+    // logging the username
+    logger.info(`Username: ${username}`);
 
-  await page.waitForNavigation();
+    const credentials = {
+      username: username,
+      password: password,
+    };
 
-  if ((await page.$("#dnn_dnnUSER_cmdRegister")) != null) {
-    // await browser.close();
-    return true;
-  } else {
-    // await browser.close();
-    return false;
+    const isValidated = await s_login(credentials);
+
+    // logging the validation result
+    logger.info(`Is Validated: ${isValidated}`);
+
+    if (isValidated) {
+      const token = generateToken(username);
+      response.header("Authorization", token);
+      response.status(200).json({ status: "success" });
+    } else {
+      response
+        .status(401)
+        .json({ status: "failed", message: "Invalid Credentials" });
+    }
+  } catch (error) {
+    logger.error(error);
+    response.json(error);
   }
+};
+
+const generateToken = (username) => {
+  const tokenContent = {
+    username: username,
+    iat: Date.now() / 1000,
+  };
+  const token = jwt.sign(tokenContent, secret_key, { expiresIn: expiresIn });
+
+  return token;
 };
 
 module.exports = login;
