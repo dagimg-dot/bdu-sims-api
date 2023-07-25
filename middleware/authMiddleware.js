@@ -7,7 +7,6 @@ const secretKey = process.env.JWT_SECRET;
 function authenticationMiddleware(req, res, next) {
   const auth = req.header('Authorization');
   const token = auth && auth.split(' ')[1];
-  console.log(token);
 
   if (!token) {
     return res.status(401).json({ message: 'Authentication token not provided.' });
