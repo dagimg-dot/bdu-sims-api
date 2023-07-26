@@ -1,13 +1,18 @@
 const express = require("express");
+const os = require("os");
 
 const login = require("./auth/login");
 const logger = require("./logger/logger");
 const courses = require("./api/courses");
 const authenticationMiddleware = require("./middleware/authMiddleware");
+const getServerIPAddress = require("./utils/ipUtils");
 
 const app = express();
 const port = process.env.EXPRESS_PORT;
-const ipAddress = "192.168.1.4";
+const ipAddress = getServerIPAddress();
+
+// Get the IP address of the PC where the server is running
+
 
 app.use(express.json());
 
