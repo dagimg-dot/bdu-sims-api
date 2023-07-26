@@ -12,7 +12,7 @@ class BrowserPool {
     }
 
     const browser = await puppeteer.launch({
-      headless: 'new',
+      headless: "new",
     });
 
     this.browserMap.set(username, browser);
