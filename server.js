@@ -11,9 +11,6 @@ const app = express();
 const port = process.env.EXPRESS_PORT;
 const ipAddress = getServerIPAddress();
 
-// Get the IP address of the PC where the server is running
-
-
 app.use(express.json());
 
 app.post("/auth/login", login);
