@@ -2,9 +2,7 @@ const browserPool = require("../utils/browser");
 
 const login = async (credentials) => {
   try {
-    const browser = await browserPool.createBrowserInstance(
-      credentials.username
-    );
+    let browser = await browserPool.createBrowserInstance(credentials.username);
 
     const page = await browser.newPage();
 
@@ -25,6 +23,8 @@ const login = async (credentials) => {
       return true;
     } else {
       await browser.close();
+      browser = null;
+      browserPool.removeBrowserInstance(credentials.username);
       return false;
     }
   } catch (error) {
