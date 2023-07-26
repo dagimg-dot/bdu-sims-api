@@ -10,11 +10,12 @@ const secret_key = process.env.JWT_SECRET;
 const expiresIn = process.env.JWT_EXPIRES_IN;
 
 const login = async (request, response) => {
-  logger.info(`Login Page requested from IP Address: ${getClientIPAddress(request)}`);
+  logger.info(
+    `Login Page requested from IP Address: ${getClientIPAddress(request)}`
+  );
 
   try {
-    const username = request.body.username;
-    const password = request.body.password;
+    const { username, password } = request.body;
 
     // logging the username
     logger.info(`Username: ${username}`);
@@ -39,10 +40,10 @@ const login = async (request, response) => {
         .json({ status: "failed", message: "Invalid Credentials" });
     } else {
       response.status(503).json({
-        "error": {
-          "message": "service unavailable"
-        }
-      })
+        error: {
+          message: "service unavailable",
+        },
+      });
     }
   } catch (error) {
     logger.error(error);
