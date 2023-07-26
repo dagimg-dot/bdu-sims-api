@@ -1,22 +1,39 @@
-const puppeteer = require('puppeteer');
+const puppeteer = require("puppeteer");
 
-class Browser {
-  static instance = null;
+class BrowserPool {
+  constructor() {
+    this.browserMap = new Map();
+  }
 
-  static async getInstance() {
-
-    if (Browser.instance === null) {
-      Browser.instance = new Browser();
-      await Browser.instance.init();
+  async createBrowserInstance(username) {
+    // Check if a browser instance already exists for the username
+    if (this.browserMap.has(username)) {
+      return this.getBrowserInstance(username);
     }
-    return Browser.instance;
+
+    const browser = await puppeteer.launch({
+      headless: 'new',
+    });
+
+    this.browserMap.set(username, browser);
+    return browser;
   }
 
-  async init() {
-    Browser.instance = await puppeteer.launch({ headless: false });
+  getBrowserInstance(username) {
+    if (this.browserMap.has(username)) {
+      return this.browserMap.get(username);
+    }
+    return null;
   }
 
-
+  async removeBrowserInstance(username) {
+    const browser = this.browserMap.get(username);
+    if (browser) {
+      await browser.close();
+      this.browserMap.delete(username);
+    }
+  }
 }
 
-module.exports = Browser;
+// Export an instance of the BrowserPool class (Singleton pattern)
+module.exports = new BrowserPool();
