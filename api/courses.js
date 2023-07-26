@@ -12,11 +12,15 @@ const courses = async (request, response) => {
     response.status(200).json({
       courses: result,
     });
+  } else if (result === null) {
+    response.status(401).json({
+      message: "Unauthorized",
+    });
+  } else {
+    response.status(500).json({
+      message: "Internal Server Error",
+    });
   }
-
-  response.status(500).json({
-    message: "Internal Server Error",
-  });
 };
 
 module.exports = courses;
