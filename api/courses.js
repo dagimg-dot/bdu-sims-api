@@ -1,9 +1,9 @@
 const logger = require("../logger/logger");
-const getIPAddress = require("../utils/ipUtils");
+const getClientIPAddress = require("../utils/ipUtils");
 
 const courses = (request, response) => {
     logger.info(
-        `Courses Page requested from IP Address: ${getIPAddress(request)}`
+        `Courses Page requested from IP Address: ${getClientIPAddress(request)}`
     );
     response.json({
         courses: [
