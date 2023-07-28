@@ -26,6 +26,10 @@ class BrowserPool {
     return null;
   }
 
+  getBrowserMap() {
+    return this.browserMap;
+  }
+
   async removeBrowserInstance(username) {
     const browser = this.browserMap.get(username);
     if (browser) {
