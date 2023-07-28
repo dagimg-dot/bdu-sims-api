@@ -6,6 +6,7 @@ const logout = require("./auth/logout");
 const logger = require("./logger/logger");
 const courses = require("./api/courses");
 const grades = require("./api/grades");
+const info = require("./api/info");
 const authenticationMiddleware = require("./middleware/authMiddleware");
 const getServerIPAddress = require("./utils/ipUtils");
 
@@ -23,6 +24,8 @@ app.get("/auth/logout", authenticationMiddleware, logout);
 app.get("/api/courses", authenticationMiddleware, courses);
 
 app.get("/api/grades", authenticationMiddleware, grades);
+
+app.get("/api/info", authenticationMiddleware, info)
 
 //Initialises the express server on the port 3000
 app.listen(port, () =>
