@@ -17,6 +17,22 @@ const ipAddress = "localhost";
 
 app.use(express.json());
 
+app.use((req, res, next) => {
+  req.setTimeout(10000);
+  req.on("timeout", function () {
+    res.status(408).json({
+      message: "Request Timeout",
+    });
+  });
+  res.setTimeout(10000);
+  res.on("timeout", function () {
+    res.status(408).json({
+      message: "Request Timeout",
+    });
+  });
+  next();
+});
+
 app.post("/auth/login", login);
 
 app.get("/auth/logout", authenticationMiddleware, logout);
