@@ -7,27 +7,30 @@ const courses = async (req) => {
   const username = decoded.username;
 
   const browser = await browserPool.getBrowserInstance(username);
-  const page = await browser.newPage();
-  await page.goto("https://studentinfo.bdu.edu.et/MyGrades.aspx");
+  if (browser != null) {
+    const page = await browser.newPage();
+    await page.goto("https://studentinfo.bdu.edu.et/MyGrades.aspx");
 
-  const rows = await page.evaluate(() => {
-    const rowElements = document.querySelectorAll(
-      "#dnn_ctr398_ViewMyGrades_reportviewer14_grid2_ob_grid2BodyContainer > div.ob_gBICont > table > tbody > tr"
-    );
-    const rowsData = Array.from(rowElements).map((rowElement) => {
-      const tds = rowElement.querySelectorAll("td");
-      return {
-        courseCode: tds[0].querySelector("div > div").innerText,
-        courseTitle: tds[1].querySelector("div > div").innerText,
-        credit: tds[2].querySelector("div > div").innerText,
-        grade: tds[3].querySelector("div > div").innerText,
-        courseCategory: tds[4].querySelector("div > div").innerText,
-      };
+    const rows = await page.evaluate(() => {
+      const rowElements = document.querySelectorAll(
+        "#dnn_ctr398_ViewMyGrades_reportviewer14_grid2_ob_grid2BodyContainer > div.ob_gBICont > table > tbody > tr"
+      );
+      const rowsData = Array.from(rowElements).map((rowElement) => {
+        const tds = rowElement.querySelectorAll("td");
+        return {
+          courseCode: tds[0].querySelector("div > div").innerText,
+          courseTitle: tds[1].querySelector("div > div").innerText,
+          credit: tds[2].querySelector("div > div").innerText,
+          grade: tds[3].querySelector("div > div").innerText,
+          courseCategory: tds[4].querySelector("div > div").innerText,
+        };
+      });
+      return rowsData;
     });
-    return rowsData;
-  });
-
-  return rows;
+    return rows;
+  } else {
+    return null;
+  }
 };
 
 module.exports = courses;
