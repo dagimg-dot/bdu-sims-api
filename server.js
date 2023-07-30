@@ -7,6 +7,7 @@ const logger = require("./logger/logger");
 const courses = require("./api/courses");
 const grades = require("./api/grades");
 const statusGeneral = require("./api/status_general")
+const statusDetail = require("./api/status_detail")
 const info = require("./api/info");
 const authenticationMiddleware = require("./middleware/authMiddleware");
 const getServerIPAddress = require("./utils/ipUtils");
@@ -43,6 +44,8 @@ app.get("/api/courses", authenticationMiddleware, courses);
 app.get("/api/grades", authenticationMiddleware, grades);
 
 app.get("/api/status/general", authenticationMiddleware, statusGeneral)
+
+app.get("/api/status/detail/:year/:semester", authenticationMiddleware, statusDetail)
 
 app.get("/api/info", authenticationMiddleware, info)
 
