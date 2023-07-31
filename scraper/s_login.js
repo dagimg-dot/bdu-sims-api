@@ -9,9 +9,6 @@ const login = async (credentials) => {
     const user = User.getUser(credentials.username);
     user.browserInstance = browser;
 
-    console.log('login.js: browser instance created');
-    
-
     const page = await browser.newPage();
 
     await page.goto("https://studentinfo.bdu.edu.et/login.aspx");
