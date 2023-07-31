@@ -25,8 +25,6 @@ const login = async (request, response) => {
     // const browserInstance = await browser.createBrowserInstance(username);
     User.addUser(username, getClientIPAddress(request));
 
-    logger.info(`User added to the database`)
-
     /*  
       i will use the username, ipadress and browser instance to create a 
       user object and store it in the database. 
@@ -45,7 +43,9 @@ const login = async (request, response) => {
     const isValidated = await s_login(credentials);
 
     // logging the validation result
-    logger.info(`Is Validated: ${isValidated}`);
+    // logger.info(`Is Validated: ${isValidated}`);
+    // console.log(isValidated);
+    
 
     if (isValidated === true) {
       const token = generateToken(username);
