@@ -1,15 +1,19 @@
-const jwt = require('jsonwebtoken');
-const dotenv = require('dotenv');
+const jwt = require("jsonwebtoken");
+const User = require("../memory_db/user");
+const dotenv = require("dotenv");
+const getUsername = require("../utils/usernameHandler");
 dotenv.config();
 
 const secretKey = process.env.JWT_SECRET;
 
 function authenticationMiddleware(req, res, next) {
-  const auth = req.header('Authorization');
-  const token = auth && auth.split(' ')[1];
+  const auth = req.header("Authorization");
+  const token = auth && auth.split(" ")[1];
 
   if (!token) {
-    return res.status(401).json({ message: 'Authentication token not provided.' });
+    return res
+      .status(401)
+      .json({ error: { message: "Authentication token not provided." } });
   }
 
   try {
@@ -17,7 +21,18 @@ function authenticationMiddleware(req, res, next) {
     req.user = decodedToken; // Store the decoded token data in the request object for future use
     next();
   } catch (error) {
-    return res.status(401).json({ message: 'Invalid or expired authentication token.' });
+    const { username, isExpired } = getUsername(req);
+    if (isExpired) {
+      const user = User.getUser(username);
+      if (user != undefined) {
+        if (user.browserInstance != null) {
+          User.closeInstance(user);
+        }
+      }
+    }
+    return res
+      .status(401)
+      .json({ error: { message: "Invalid or expired authentication token." } });
   }
 }
 
