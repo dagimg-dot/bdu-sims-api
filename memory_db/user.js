@@ -30,6 +30,15 @@ class User {
         }
     }
 
+    static clear() {
+        User.users = [];
+    }
+
+    static closeInstance(user) {
+        user.browserInstance.close();
+        user.browserInstance = null;
+    } 
+
     getCourses() {
         return this.courses;
     }
