@@ -1,8 +1,15 @@
 const browserPool = require("../utils/browser");
+const User = require("../memory_db/user");
 
 const login = async (credentials) => {
   try {
     let browser = await browserPool.createBrowserInstance(credentials.username);
+    
+    const user = User.getUser(credentials.username);
+    user.browserInstance = browser;
+
+    console.log('login.js: browser instance created');
+    
 
     const page = await browser.newPage();
 
