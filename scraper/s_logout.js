@@ -1,4 +1,5 @@
 const browserPool = require("../utils/browser");
+const User = require("../memory_db/user");
 const jwt = require("jsonwebtoken");
 
 const logout = async (request) => {
@@ -11,6 +12,7 @@ const logout = async (request) => {
     if(browser != null) {
         await browser.close();
         browserPool.removeBrowserInstance(username);
+        User.removeUser(username);
         return true;
     } else {
         return false;
