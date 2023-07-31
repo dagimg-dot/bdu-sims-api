@@ -23,6 +23,12 @@ app.use(express.json());
 
 app.use(timeoutHandler);
 
+// clear the users cache every 5 minutes
+setInterval(() => {
+  User.clear();
+  logger.info("Users data cleared");
+}, 5 * 60 * 1000);
+
 app.post("/auth/login", login);
 
 app.get("/auth/logout", authenticationMiddleware, logout);
