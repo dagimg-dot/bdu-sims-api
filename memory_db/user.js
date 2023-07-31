@@ -30,6 +30,37 @@ class User {
         }
     }
 
+    getCourses() {
+        return this.courses;
+    }
+
+    setCourses(courses) {
+        this.courses = courses;
+    }
+
+    getGrades() {
+        return this.grades;
+    }
+
+    setGrades(grades) {
+        this.grades = grades;
+    }
+
+    getGeneralStatus() {
+        return this.generalStatus;
+    }
+
+    setGeneralStatus(generalStatus) {
+        this.generalStatus = generalStatus;
+    }
+
+    getDetailStatus() {
+        return this.detailStatus;
+    }
+
+    setDetailStatus(detailStatus) {
+        this.detailStatus = detailStatus;
+    }
 }
 
 module.exports = User;
