@@ -1,5 +1,6 @@
 const browserPool = require("../utils/browser");
 const User = require("../memory_db/user");
+const logger = require("../logger/logger");
 
 const login = async (credentials) => {
   try {
@@ -32,10 +33,15 @@ const login = async (credentials) => {
       await browser.close();
       browser = null;
       browserPool.removeBrowserInstance(credentials.username);
+      User.removeUser(credentials.username);
       return false;
     }
   } catch (error) {
-    return error;
+    const user = User.getUser(credentials.username)
+    User.closeInstance(user);
+    // console.log(error);
+    logger.info('No Connection')
+    // return error;
   }
 };
 
