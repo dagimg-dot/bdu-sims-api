@@ -5,6 +5,8 @@ dotenv.config();
 const logger = require("../logger/logger");
 const getClientIPAddress = require("../utils/ipUtils");
 const s_login = require("../scraper/s_login");
+const browser = require("../utils/browser");
+const User = require("../memory_db/user");
 
 const secret_key = process.env.JWT_SECRET;
 const expiresIn = process.env.JWT_EXPIRES_IN;
@@ -19,6 +21,21 @@ const login = async (request, response) => {
 
     // logging the username
     logger.info(`Username: ${username}`);
+
+    // const browserInstance = await browser.createBrowserInstance(username);
+    User.addUser(username, getClientIPAddress(request));
+
+    logger.info(`User added to the database`)
+
+    /*  
+      i will use the username, ipadress and browser instance to create a 
+      user object and store it in the database. 
+
+      the user object will contain
+        -> username
+        -> ipaddress
+        -> browser instance
+    */
 
     const credentials = {
       username: username,
@@ -47,7 +64,6 @@ const login = async (request, response) => {
     }
   } catch (error) {
     logger.error(error);
-    response.json(error);
   }
 };
 
