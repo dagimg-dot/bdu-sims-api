@@ -1,5 +1,7 @@
 const User = require("../memory_db/user");
 const getClientIPAddress = require("../utils/ipUtils");
+const jwt = require("jsonwebtoken");
+const getUsername = require("./usernameHandler");
 
 const TIME_OUT_SEC = 10000;
 
@@ -15,10 +17,11 @@ const onTimeout = (req, res) => {
   console.log("timeoutHandler.js: timeout");
   let user = null;
 
-  if (req.url == "/auth/login") {
+  if (req.originalUrl == "/auth/login") {
     user = User.getUser(req.body.username);
   } else {
-    user = User.getUser(req.headers.username);
+    const username = getUsername(req);
+    user = User.getUser(username);
   }
 
   if (user.browserInstance != null) {
