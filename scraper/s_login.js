@@ -36,8 +36,10 @@ const login = async (credentials) => {
   } catch (error) {
     const user = User.getUser(credentials.username)
     User.closeInstance(user);
-    // console.log(error);
-    logger.info('No Connection')
+    // console.log(error.message);
+    if(error.message.includes("net")) {
+      logger.info(`Something is wrong in ${credentials.username} connection`)
+    }
     // return error;
   }
 };

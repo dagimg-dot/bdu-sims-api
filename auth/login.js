@@ -41,12 +41,6 @@ const login = async (request, response) => {
     };
 
     const isValidated = await s_login(credentials);
-
-    // logging the validation result
-    // logger.info(`Is Validated: ${isValidated}`);
-    // console.log(isValidated);
-    
-
     if (isValidated === true) {
       const token = generateToken(username);
       response.header("Authorization", token);
@@ -56,11 +50,15 @@ const login = async (request, response) => {
         .status(401)
         .json({ status: "failed", message: "Invalid Credentials" });
     } else {
-      response.status(503).json({
-        error: {
-          message: "service unavailable",
-        },
-      });
+      if (!response.headersSent) {
+        response.status(503).json({
+          error: {
+            message: "service unavailable",
+          },
+        });
+      } else {
+        logger.info(`Request Timeout`)
+      }
     }
   } catch (error) {
     logger.error(error);
