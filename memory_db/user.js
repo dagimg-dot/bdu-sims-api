@@ -5,6 +5,7 @@ class User {
         this.username = username;
         this.ipaddress = ipaddress;
         this.browserInstance = null;
+        this.info = null;
         this.courses = null;
         this.grades = null;
         this.generalStatus = null;
@@ -30,7 +31,12 @@ class User {
         }
     }
 
-    static clear() {
+    static clear({withInstance: withInstance = false}) {
+        if(withInstance) {
+            User.users.forEach(user => {
+                User.closeInstance(user);
+            });
+        }
         User.users = [];
     }
 
@@ -40,6 +46,14 @@ class User {
             user.browserInstance = null;
         }
     } 
+
+    getInfo() {
+        return this.info;
+    }
+     
+    setInfo(info) {
+        this.info = info;
+    }
 
     getCourses() {
         return this.courses;
