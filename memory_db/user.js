@@ -35,8 +35,10 @@ class User {
     }
 
     static closeInstance(user) {
-        user.browserInstance.close();
-        user.browserInstance = null;
+        if(user.browserInstance != null) {
+            user.browserInstance.close();
+            user.browserInstance = null;
+        }
     } 
 
     getCourses() {
