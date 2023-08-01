@@ -1,3 +1,5 @@
+const logger = require('../logger/logger');
+
 const handleError = (error) => {
     if (error.message.includes("net")) {
         logger.info(`Something is wrong in ${credentials.username} connection`);
