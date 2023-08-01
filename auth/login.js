@@ -57,7 +57,7 @@ const login = async (request, response) => {
           },
         });
       } else {
-        logger.info(`Request Timeout`)
+        logger.info(`Request Timeout on ${getClientIPAddress(request)}`)
       }
     }
   } catch (error) {
