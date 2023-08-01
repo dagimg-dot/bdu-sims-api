@@ -8,8 +8,10 @@ const courses = async (request, response) => {
   logger.info(
     `Courses Page requested from IP Address: ${getClientIPAddress(request)}`
   );
-
-  const user = User.getUser(getUsername(request));
+  
+  const {username, isExpired } = getUsername(request);
+  const user = User.getUser(username);
+  
   if (user.getCourses() !== null) {
     response.status(200).json({
       courses: user.getCourses(),
