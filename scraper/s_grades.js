@@ -12,11 +12,15 @@ const courses = async (req) => {
     await page.goto("https://studentinfo.bdu.edu.et/MyGrades.aspx");
 
     // find "There are no records available." in the html page
-    if(await page.$("#dnn_ctr398_ViewMyGrades_reportviewer14_grid2_ob_grid2BodyContainer > div.ob_gBICont > table > tbody > tr > td > div") != null) {
+    if (
+      (await page.$(
+        "#dnn_ctr398_ViewMyGrades_reportviewer14_grid2_ob_grid2BodyContainer > div.ob_gBICont > table > tbody > tr > td > div"
+      ).innerText) == "There are no records available."
+    ) {
       return {
-        error: "There are no records available."
+        error: "There are no records available.",
       };
-    } 
+    }
 
     const rows = await page.evaluate(() => {
       const rowElements = document.querySelectorAll(
