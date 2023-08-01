@@ -19,21 +19,7 @@ const login = async (request, response) => {
   try {
     const { username, password } = request.body;
 
-    // logging the username
-    logger.info(`Username: ${username}`);
-
-    // const browserInstance = await browser.createBrowserInstance(username);
     User.addUser(username, getClientIPAddress(request));
-
-    /*  
-      i will use the username, ipadress and browser instance to create a 
-      user object and store it in the database. 
-
-      the user object will contain
-        -> username
-        -> ipaddress
-        -> browser instance
-    */
 
     const credentials = {
       username: username,
