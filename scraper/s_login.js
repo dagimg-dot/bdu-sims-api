@@ -1,6 +1,6 @@
 const browserPool = require("../utils/browser");
 const User = require("../memory_db/user");
-const logger = require("../logger/logger");
+const handleError = require("../utils/errorHandler");
 
 const login = async (credentials) => {
   try {
@@ -36,11 +36,7 @@ const login = async (credentials) => {
   } catch (error) {
     const user = User.getUser(credentials.username)
     User.closeInstance(user);
-    // console.log(error.message);
-    if(error.message.includes("net")) {
-      logger.info(`Something is wrong in ${credentials.username} connection`)
-    }
-    // return error;
+    handleError(error);
   }
 };
 
