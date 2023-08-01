@@ -14,7 +14,6 @@ const timeoutHandler = (req, res, next) => {
 };
 
 const onTimeout = (req, res) => {
-  console.log("timeoutHandler.js: timeout");
   let user = null;
 
   if (req.originalUrl == "/auth/login") {
