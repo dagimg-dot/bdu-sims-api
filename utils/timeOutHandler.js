@@ -1,6 +1,4 @@
 const User = require("../memory_db/user");
-const getClientIPAddress = require("../utils/ipUtils");
-const jwt = require("jsonwebtoken");
 const getUsername = require("./usernameHandler");
 
 const TIME_OUT_SEC = 10000;
