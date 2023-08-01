@@ -11,6 +11,13 @@ const courses = async (req) => {
     const page = await browser.newPage();
     await page.goto("https://studentinfo.bdu.edu.et/MyGrades.aspx");
 
+    // find "There are no records available." in the html page
+    if(await page.$("#dnn_ctr398_ViewMyGrades_reportviewer14_grid2_ob_grid2BodyContainer > div.ob_gBICont > table > tbody > tr > td > div") != null) {
+      return {
+        error: "There are no records available."
+      };
+    } 
+
     const rows = await page.evaluate(() => {
       const rowElements = document.querySelectorAll(
         "#dnn_ctr398_ViewMyGrades_reportviewer14_grid2_ob_grid2BodyContainer > div.ob_gBICont > table > tbody > tr"
