@@ -1,6 +1,8 @@
 const browserPool = require("../utils/browser");
 const jwt = require("jsonwebtoken");
 const handleError = require("../utils/errorHandler");
+const User = require("../memory_db/user");
+const Pages = require("../utils/types");
 
 const courses = async (req) => {
   const token = req.headers.authorization.split(" ")[1];
@@ -10,6 +12,11 @@ const courses = async (req) => {
   const browser = await browserPool.getBrowserInstance(username);
   if (browser != null) {
     const page = await browser.newPage();
+    
+    const user = User.getUser(username);
+    
+    user.pages[Pages.COURSES].value = page;
+
     try {
       await page.goto("https://studentinfo.bdu.edu.et/mycourses.aspx");
 
@@ -33,7 +40,7 @@ const courses = async (req) => {
       });
       return rows;
     } catch (error) {
-      handleError(error);
+      handleError(error, username);
     }
   } else {
     return null;
