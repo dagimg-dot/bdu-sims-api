@@ -41,12 +41,7 @@ class User {
         }
     }
 
-    static clear({withInstance: withInstance = false}) {
-        if(withInstance) {
-            User.users.forEach(user => {
-                User.closeInstance(user);
-            });
-        }
+    static clear() {
         User.users = [];
     }
 
