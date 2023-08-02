@@ -40,7 +40,7 @@ const courses = async (req) => {
       });
       return rows;
     } catch (error) {
-      handleError(error, username);
+      handleError(error);
     }
   } else {
     return null;

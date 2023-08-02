@@ -36,7 +36,7 @@ const login = async (credentials) => {
   } catch (error) {
     const user = User.getUser(credentials.username)
     User.closeInstance(user);
-    handleError(error, credentials.username);
+    handleError(error);
   }
 };
 
