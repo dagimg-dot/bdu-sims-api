@@ -64,6 +64,7 @@ class User {
             if(currentPage !== null) {
                 currentPage.close();
                 currentPage = null;
+                user.setRequested(null);
             }
         }   
     }
