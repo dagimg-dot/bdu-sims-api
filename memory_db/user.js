@@ -1,3 +1,5 @@
+const Pages = require('../utils/types');
+
 class User {
     static users = [];
 
@@ -5,13 +7,21 @@ class User {
         this.username = username;
         this.ipaddress = ipaddress;
         this.browserInstance = null;
+        this.pages = {
+            [Pages.INFO]: { name: Pages.INFO, value: null },
+            [Pages.COURSES]: { name: Pages.COURSES, value: null },
+            [Pages.GRADES]: { name: Pages.GRADES, value: null },
+            [Pages.GENERAL_STATUS]: { name: Pages.GENERAL_STATUS, value: null },
+            [Pages.DETAIL_STATUS]: { name: Pages.DETAIL_STATUS, value: null },
+        };
         this.info = null;
         this.courses = null;
         this.grades = null;
         this.generalStatus = null;
         this.detailStatus = null;
+        this.requested = null;
         User.users.push(this);
-    }
+    } 
 
     static getUser(username) {
         return User.users.find(user => user.username === username);
@@ -46,6 +56,17 @@ class User {
             user.browserInstance = null;
         }
     } 
+    
+    static closePage(user) {
+        const requested = user.getRequested();
+        if(requested !== null) {
+            let currentPage = user.pages[requested].value ;
+            if(currentPage !== null) {
+                currentPage.close();
+                currentPage = null;
+            }
+        }   
+    }
 
     getInfo() {
         return this.info;
@@ -86,6 +107,15 @@ class User {
     setDetailStatus(detailStatus) {
         this.detailStatus = detailStatus;
     }
+
+    getRequested() {
+        return this.requested;
+    }
+     
+    setRequested(requested) {
+        this.requested = requested;
+    }
+
 }
 
 module.exports = User;
