@@ -13,6 +13,7 @@ const authenticationMiddleware = require("./middleware/authMiddleware");
 const getServerIPAddress = require("./utils/ipUtils");
 const User = require("./memory_db/user");
 const timeoutHandler = require("./utils/timeOutHandler");
+const undefinedRouteHandler = require("./utils/undefinedRouteHandler")
 
 const app = express();
 const port = process.env.EXPRESS_PORT;
@@ -46,6 +47,8 @@ app.get(
 );
 
 app.get("/api/info", authenticationMiddleware, info);
+
+app.use(undefinedRouteHandler)
 
 //Initialises the express server on the port 3000
 app.listen(port, () =>
