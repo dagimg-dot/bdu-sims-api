@@ -14,7 +14,7 @@ const status = async (request, response) => {
   const user = User.getUser(username);
   user.setRequested(Pages.GENERAL_STATUS);
 
-  if (user.getGrades() !== null) {
+  if (user.getGeneralStatus() !== null) {
     response.status(200).json({
       status: user.getGeneralStatus(),
     });
