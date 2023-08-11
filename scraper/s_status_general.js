@@ -1,5 +1,8 @@
 const browserPool = require("../utils/browser");
 const jwt = require("jsonwebtoken");
+const handleError = require("../utils/errorHandler");
+const User = require("../memory_db/user");
+const Pages = require("../utils/types");
 
 const status = async (req) => {
   const token = req.headers.authorization.split(" ")[1];
@@ -9,11 +12,18 @@ const status = async (req) => {
   const browser = await browserPool.getBrowserInstance(username);
   if (browser != null) {
     const page = await browser.newPage();
-    await page.goto("https://studentinfo.bdu.edu.et/MyStatus.aspx");
 
-    const rows = await page.evaluate(() => {
-      let count = 0;
-      try {
+    const user = User.getUser(username);
+
+    user.pages[Pages.GENERAL_STATUS].value = page;
+
+    try {
+      await page.goto("https://studentinfo.bdu.edu.et/MyStatus.aspx");
+
+      const rows = await page.evaluate(() => {
+        let count = 0;
+        // TODO: make sure the try catch catches all the relevant errors 
+        // or should i handle each error separately
         const rowElements = document.querySelectorAll(
           "#dnn_ctr397_ViewMyStatus_reportviewer11_grid2_ob_grid2BodyContainer > div.ob_gBICont > table > tbody > tr"
         );
@@ -38,13 +48,13 @@ const status = async (req) => {
           }
         });
         return rowsData;
-      } catch (error) {
-        return null;
-      }
-    });
+      });
 
-    const filteredRows = rows.filter((row) => row != "detailGrade");
-    return filteredRows;
+      const filteredRows = rows.filter((row) => row != "detailGrade");
+      return filteredRows;
+    } catch (error) {
+      handleError(error);
+    }
   } else {
     return null;
   }
