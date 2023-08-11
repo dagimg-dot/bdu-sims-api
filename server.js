@@ -1,5 +1,4 @@
 const express = require("express");
-const os = require("os");
 
 const login = require("./auth/login");
 const logout = require("./auth/logout");
@@ -10,7 +9,6 @@ const statusGeneral = require("./api/status_general");
 const statusDetail = require("./api/status_detail");
 const info = require("./api/info");
 const authenticationMiddleware = require("./middleware/authMiddleware");
-const getServerIPAddress = require("./utils/ipUtils");
 const User = require("./memory_db/user");
 const timeoutHandler = require("./utils/timeOutHandler");
 const undefinedRouteHandler = require("./utils/undefinedRouteHandler")
