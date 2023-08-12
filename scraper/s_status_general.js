@@ -1,5 +1,4 @@
 const browserPool = require("../utils/browser");
-const jwt = require("jsonwebtoken");
 const handleError = require("../utils/errorHandler");
 const User = require("../memory_db/user");
 const Pages = require("../utils/types");
