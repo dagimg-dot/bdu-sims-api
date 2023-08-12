@@ -4,7 +4,7 @@ const User = require("../memory_db/user");
 const Pages = require("../utils/types");
 const getUsername = require("../utils/usernameHandler");
 
-const info = async (request) => {
+const info = async (req) => {
   const { username, isExpired } = getUsername(req);
 
   const browser = await browserPool.getBrowserInstance(username);
