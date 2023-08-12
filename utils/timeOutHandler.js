@@ -1,7 +1,7 @@
 const User = require("../memory_db/user");
 const getUsername = require("./usernameHandler");
 
-const TIME_OUT_SEC = 10000;
+const TIME_OUT_SEC = process.env.TIMEOUT;
 
 const timeoutHandler = (req, res, next) => {
   req.setTimeout(TIME_OUT_SEC);
