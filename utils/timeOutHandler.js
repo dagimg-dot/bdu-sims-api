@@ -16,15 +16,13 @@ const onTimeout = (req, res) => {
 
   if (req.originalUrl == "/auth/login") {
     user = User.getUser(req.body.username);
+    User.closeInstance(user);
   } else {
-    const username = getUsername(req);
+    const { username, isExpired } = getUsername(req);
     user = User.getUser(username);
+    User.closePage(user);
   }
 
-  if (user.browserInstance != null) {
-    user.browserInstance.close();
-    user.browserInstance = null;
-  }
   res.status(408).json({
     error: {
       message: "request timeout",
