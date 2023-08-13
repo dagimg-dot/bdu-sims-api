@@ -16,26 +16,11 @@ const status = async (request, response) => {
 
   if (user.getGeneralStatus() !== null) {
     response.status(200).json({
-      status: user.getGeneralStatus(),
+      [Pages.GENERAL_STATUS]: user.getGeneralStatus(),
     });
   } else {
     const result = await s_status_general(request);
-    if (!response.headersSent) {
-      if (result !== null) {
-        user.setGeneralStatus(result);
-        response.status(200).json({
-          status: result,
-        });
-      } else if (result === null) {
-        response.status(401).json({
-          message: "Unauthorized",
-        });
-      } else {
-        response.status(500).json({
-          message: "Internal Server Error",
-        });
-      }
-    }
+    sendResult(result, response, Pages.GENERAL_STATUS, () => user.setGeneralStatus);
   }
 };
 
