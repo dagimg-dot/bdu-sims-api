@@ -4,6 +4,7 @@ const s_status_general = require("../scraper/s_status_general");
 const User = require("../memory_db/user");
 const getUsername = require("../utils/usernameHandler");
 const Pages = require("../utils/types");
+const sendResult = require("../utils/sendResult");
 
 const status = async (request, response) => {
   logger.info(
