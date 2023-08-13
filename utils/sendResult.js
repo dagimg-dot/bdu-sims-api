@@ -1,17 +1,21 @@
 const sendResult = (result, response, pageType, setFunc) => {
   if (!response.headersSent) {
     if (result !== null) {
-      setFunc(result);
+      setFunc(result); // This is a callback
       response.status(200).json({
         [pageType]: result,
       });
     } else if (result === null) {
       response.status(401).json({
-        message: "Unauthorized",
+        error: {
+          message: "Unauthorized",
+        }
       });
     } else {
       response.status(500).json({
-        message: "Internal Server Error",
+        error: {
+          message: "Internal Server Error",
+        }
       });
     }
   }
