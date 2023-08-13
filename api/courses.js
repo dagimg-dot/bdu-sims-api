@@ -21,7 +21,7 @@ const courses = async (request, response) => {
     });
   } else {
     const result = await s_courses(request);
-    sendResult(result, response, Pages.COURSES, user.setCourses(result));
+    sendResult(result, response, Pages.COURSES, () => user.setCourses);
   }
 };
 
