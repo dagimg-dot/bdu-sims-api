@@ -12,7 +12,9 @@ const courses = async (request, response) => {
 
   if (isNaN(year) || isNaN(semester) || semester < 1 || semester >= 3) {
     response.status(400).json({
-      message: "Bad Request",
+      error: {
+        message: "Bad Request",
+      },
     });
   } else {
     const result = await s_status_detail(request);
