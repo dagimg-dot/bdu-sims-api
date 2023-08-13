@@ -4,6 +4,7 @@ const s_courses = require("../scraper/s_courses");
 const User = require("../memory_db/user");
 const getUsername = require("../utils/usernameHandler");
 const Pages = require("../utils/types");
+const sendResult = require("../utils/sendResult");
 
 const courses = async (request, response) => {
   logger.info(
@@ -20,22 +21,7 @@ const courses = async (request, response) => {
     });
   } else {
     const result = await s_courses(request);
-    if (!response.headersSent) {
-      if (result !== null) {
-        user.setCourses(result);
-        response.status(200).json({
-          courses: result,
-        });
-      } else if (result === null) {
-        response.status(401).json({
-          message: "Unauthorized",
-        });
-      } else {
-        response.status(500).json({
-          message: "Internal Server Error",
-        });
-      }
-    }
+    sendResult(result, response, Pages.COURSES, user.setCourses(result));
   }
 };
 
