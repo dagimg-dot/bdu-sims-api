@@ -15,13 +15,17 @@ const logout = async (request, response) => {
     });
   } else if (isLoggedOut === false) {
     response.status(401).json({
-      status: "failed",
-      message: "Unauthorized",
+      error: {
+        status: "failed",
+        message: "Unauthorized",
+      },
     });
   } else {
     response.status(500).json({
-      status: "failed",
-      message: "Internal Server Error",
+      error: {
+        status: "failed",
+        message: "Internal Server Error",
+      }
     });
   }
 };
