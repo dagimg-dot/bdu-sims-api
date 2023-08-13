@@ -15,7 +15,6 @@ const undefinedRouteHandler = require("./utils/undefinedRouteHandler")
 
 const app = express();
 const port = process.env.EXPRESS_PORT;
-// const ipAddress = "192.168.1.4"
 const ipAddress = "localhost";
 
 app.use(express.json());
