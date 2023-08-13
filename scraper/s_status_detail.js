@@ -6,8 +6,8 @@ const status = async (req) => {
   const decoded = jwt.verify(token, process.env.JWT_SECRET);
   const username = decoded.username;
 
-  const year = req.body.year;
-  const semester = req.body.semester;
+  const year = req.params.year;
+  const semester = req.params.semester;
 
   const browser = await browserPool.getBrowserInstance(username);
   if (browser != null) {
