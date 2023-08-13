@@ -17,7 +17,7 @@ const courses = async (request, response) => {
 
   if (user.getCourses() !== null) {
     response.status(200).json({
-      courses: user.getCourses(),
+      [Pages.COURSES]: user.getCourses(),
     });
   } else {
     const result = await s_courses(request);
