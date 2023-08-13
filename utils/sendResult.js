@@ -16,3 +16,5 @@ const sendResult = (result, response, pageType, setFunc) => {
     }
   }
 };
+
+module.exports = sendResult;
