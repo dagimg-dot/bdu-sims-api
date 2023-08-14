@@ -3,7 +3,7 @@ const getClientIPAddress = require("../utils/ipUtils");
 const s_info = require("../scraper/s_info");
 const User = require("../memory_db/user");
 const getUsername = require("../utils/usernameHandler");
-const Pages = require("../utils/types");
+const Pages = require("../utils/types").Pages;
 const sendResult = require("../utils/sendResult");
 
 const info = async (request, response) => {

@@ -3,7 +3,7 @@ const getClientIPAddress = require("../utils/ipUtils");
 const s_grades = require("../scraper/s_grades");
 const User = require("../memory_db/user");
 const getUsername = require("../utils/usernameHandler");
-const Pages = require("../utils/types");
+const Pages = require("../utils/types").Pages;
 const sendResult = require("../utils/sendResult");
 
 const courses = async (request, response) => {
