@@ -33,7 +33,7 @@ const login = async (request, response) => {
     } else if (isValidated === false) {
       response
         .status(401)
-        .json({ status: "failed", message: "Invalid Credentials" });
+        .json({ error: { status: "failed", message: "Invalid Credentials" } });
     } else {
       if (!response.headersSent) {
         response.status(503).json({
@@ -42,7 +42,7 @@ const login = async (request, response) => {
           },
         });
       } else {
-        logger.info(`Request Timeout on ${getClientIPAddress(request)}`)
+        logger.info(`Request Timeout on ${getClientIPAddress(request)}`);
       }
     }
   } catch (error) {
