@@ -1,4 +1,4 @@
-const Pages = require('../utils/types');
+const Pages = require('../utils/types').Pages;
 
 class User {
     static users = [];
