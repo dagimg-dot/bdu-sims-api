@@ -5,7 +5,6 @@ dotenv.config();
 const logger = require("../logger/logger");
 const getClientIPAddress = require("../utils/ipUtils");
 const s_login = require("../scraper/s_login");
-const browser = require("../utils/browser");
 const User = require("../memory_db/user");
 
 const secret_key = process.env.JWT_SECRET;
