@@ -1,6 +1,7 @@
 const browserPool = require("../utils/browser");
 const User = require("../memory_db/user");
 const handleError = require("../utils/errorHandler");
+const Url = require("../utils/types").Url;
 
 const login = async (credentials) => {
   try {
@@ -11,7 +12,7 @@ const login = async (credentials) => {
 
     const page = await browser.newPage();
 
-    await page.goto("https://studentinfo.bdu.edu.et/login.aspx");
+    await page.goto(Url.LOGIN);
 
     const username = await page.$("#dnn_ctr_login_login_dnn_txtusername");
     await username.type(credentials.username);

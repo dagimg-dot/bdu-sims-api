@@ -1,7 +1,7 @@
 const browserPool = require("../utils/browser");
 const handleError = require("../utils/errorHandler");
 const User = require("../memory_db/user");
-const Pages = require("../utils/types");
+const { Pages, Url } = require("../utils/types");
 const getUsername = require("../utils/usernameHandler");
 
 const info = async (req) => {
@@ -16,7 +16,7 @@ const info = async (req) => {
     user.pages[Pages.INFO].value = page;
 
     try {
-      await page.goto("https://studentinfo.bdu.edu.et");
+      await page.goto(Url.INFO);
       const rows = await page.evaluate(() => {
         const rowElements = document.querySelectorAll(
           "#dnn_ctr409_HtmlModule_lblContent > span > table > tbody > tr"

@@ -1,7 +1,7 @@
 const browserPool = require("../utils/browser");
 const handleError = require("../utils/errorHandler");
 const User = require("../memory_db/user");
-const Pages = require("../utils/types");
+const { Pages, Url } = require("../utils/types");
 const getUsername = require("../utils/usernameHandler");
 
 const status = async (req) => {
@@ -16,7 +16,7 @@ const status = async (req) => {
     user.pages[Pages.GENERAL_STATUS].value = page;
 
     try {
-      await page.goto("https://studentinfo.bdu.edu.et/MyStatus.aspx");
+      await page.goto(Url.STATUS);
 
       const rows = await page.evaluate(() => {
         let count = 0;

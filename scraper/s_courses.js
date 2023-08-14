@@ -1,7 +1,7 @@
 const browserPool = require("../utils/browser");
 const handleError = require("../utils/errorHandler");
 const User = require("../memory_db/user");
-const Pages = require("../utils/types");
+const { Pages, Url } = require("../utils/types");
 const getUsername = require("../utils/usernameHandler");
 
 const courses = async (req) => {
@@ -16,7 +16,7 @@ const courses = async (req) => {
     user.pages[Pages.COURSES].value = page;
 
     try {
-      await page.goto("https://studentinfo.bdu.edu.et/mycourses.aspx");
+      await page.goto(Url.COURSES);
 
       const rows = await page.evaluate(() => {
         const rowElements = document.querySelectorAll(
