@@ -14,7 +14,7 @@ const status_detail = async (request, response) => {
   const year = request.params.year;
   const semester = request.params.semester;
 
-  const { username, isExpired } = getUsername(request);
+  const username = getUsername(request).username;
   const user = User.getUser(username);
   user.setRequested(Pages.DETAIL_STATUS);
 

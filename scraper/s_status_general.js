@@ -5,7 +5,7 @@ const { Pages, Url } = require("../utils/types");
 const getUsername = require("../utils/usernameHandler");
 
 const status = async (req) => {
-  const { username, isExpired } = getUsername(req);
+  const username = getUsername(req).username;
 
   const browser = await browserPool.getBrowserInstance(username);
   if (browser != null) {

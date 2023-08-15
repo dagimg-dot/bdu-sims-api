@@ -5,7 +5,7 @@ const { Pages, Url } = require("../utils/types");
 const handleError = require("../utils/errorHandler");
 
 const status = async (req) => {
-  const { username, isExpired } = getUsername(req);
+  const username = getUsername(req).username;
 
   const year = req.params.year;
   const semester = req.params.semester;

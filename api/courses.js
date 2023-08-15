@@ -11,7 +11,7 @@ const courses = async (request, response) => {
     `Courses Page requested from IP Address: ${getClientIPAddress(request)}`
   );
 
-  const { username, isExpired } = getUsername(request);
+  const username = getUsername(request).username;
   const user = User.getUser(username);
   user.setRequested(Pages.COURSES);
 

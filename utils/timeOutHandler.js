@@ -18,7 +18,7 @@ const onTimeout = (req, res) => {
     user = User.getUser(req.body.username);
     User.closeInstance(user);
   } else {
-    const { username, isExpired } = getUsername(req);
+    const username = getUsername(req).username;
     user = User.getUser(username);
     User.closePage(user);
   }
