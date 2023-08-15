@@ -8,7 +8,7 @@ const sendResult = require("../utils/sendResult");
 
 const status_general = async (request, response) => {
   logger.info(
-    `Status Page requested from IP Address: ${getClientIPAddress(request)}`
+    `General status requested from IP Address: ${getClientIPAddress(request)}`
   );
 
   const { username, isExpired } = getUsername(request);

@@ -8,7 +8,7 @@ const Pages = require("../utils/types").Pages;
 
 const status_detail = async (request, response) => {
   logger.info(
-    `Detail status Page requested from IP Address: ${getClientIPAddress(request)}`
+    `Detail status requested from IP Address: ${getClientIPAddress(request)}`
   );
 
   const year = request.params.year;
