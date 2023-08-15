@@ -1,10 +1,8 @@
 const browserPool = require("../utils/browser");
-const jwt = require("jsonwebtoken");
+const getUsername = require("../utils/usernameHandler");
 
 const status = async (req) => {
-  const token = req.headers.authorization.split(" ")[1];
-  const decoded = jwt.verify(token, process.env.JWT_SECRET);
-  const username = decoded.username;
+  const { username, isExpired } = getUsername(req);
 
   const year = req.params.year;
   const semester = req.params.semester;
