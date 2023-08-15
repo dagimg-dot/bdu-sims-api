@@ -87,12 +87,7 @@ const status = async (req) => {
       year,
       semester
     );
-    if (rows != null) {
-      const filteredRows = rows.filter((row) => row != "detailGrade");
-      return filteredRows;
-    } else {
-      return null;
-    }
+    return rows;
   } else {
     return null;
   }
