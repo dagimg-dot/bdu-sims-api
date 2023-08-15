@@ -1,5 +1,5 @@
-const undefinedRouteHandler = (req, res, next) => {
-    res.status(404).json({ error: 'Not found' });
-}
+const undefinedRouteHandler = (res) => {
+  res.status(404).json({ error: { message: "Not found" } });
+};
 
-module.exports = undefinedRouteHandler
+module.exports = undefinedRouteHandler;
