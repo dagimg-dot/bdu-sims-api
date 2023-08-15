@@ -6,8 +6,6 @@ class BrowserPool {
   }
 
   async createBrowserInstance(username) {
-    // Check if a browser instance already exists for the username
-
     const browser = await puppeteer.launch({
       headless: false,
       // args: ["--no-sandbox", "--disable-setuid-sandbox"],
