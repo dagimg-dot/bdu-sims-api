@@ -1,5 +1,7 @@
 const browserPool = require("../utils/browser");
 const getUsername = require("../utils/usernameHandler");
+const User = require("../memory_db/user");
+const { Pages, Url } = require("../utils/types");
 
 const status = async (req) => {
   const { username, isExpired } = getUsername(req);
@@ -10,7 +12,12 @@ const status = async (req) => {
   const browser = await browserPool.getBrowserInstance(username);
   if (browser != null) {
     const page = await browser.newPage();
-    await page.goto("https://studentinfo.bdu.edu.et/MyStatus.aspx");
+
+    const user = User.getUser(username);
+
+    user.pages[Pages.DETAIL_STATUS].value = page;
+
+    await page.goto(Url.STATUS);
 
     const rows = await page.evaluate(
       async (year, semester) => {
