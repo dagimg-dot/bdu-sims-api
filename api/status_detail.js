@@ -15,7 +15,7 @@ const courses = async (request, response) => {
 
   const { username, isExpired } = getUsername(request);
   const user = User.getUser(username);
-  user.setRequested(Pages.GENERAL_STATUS);
+  user.setRequested(Pages.DETAIL_STATUS);
 
   if (isNaN(year) || isNaN(semester) || semester < 1 || semester >= 3) {
     response.status(400).json({
