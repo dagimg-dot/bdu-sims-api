@@ -6,7 +6,7 @@ const getUsername = require("../utils/usernameHandler");
 const Pages = require("../utils/types").Pages;
 const sendResult = require("../utils/sendResult");
 
-const status = async (request, response) => {
+const status_general = async (request, response) => {
   logger.info(
     `Status Page requested from IP Address: ${getClientIPAddress(request)}`
   );
@@ -25,4 +25,4 @@ const status = async (request, response) => {
   }
 };
 
-module.exports = status;
+module.exports = status_general;
