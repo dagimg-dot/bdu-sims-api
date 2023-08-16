@@ -21,7 +21,12 @@ const status_general = async (request, response) => {
     });
   } else {
     const result = await s_status_general(request);
-    sendResult(result, response, Pages.GENERAL_STATUS, () => user.setGeneralStatus);
+    sendResult(
+      result,
+      response,
+      Pages.GENERAL_STATUS,
+      () => user.setGeneralStatus
+    );
   }
 };
 
