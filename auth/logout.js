@@ -25,7 +25,7 @@ const logout = async (request, response) => {
       error: {
         status: "failed",
         message: "Internal Server Error",
-      }
+      },
     });
   }
 };
