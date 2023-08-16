@@ -2,11 +2,11 @@ const logger = require("../logger/logger");
 
 const handleError = (error) => {
   if (error.message.includes("ERR_NAME_NOT_RESOLVED")) {
-    logger.info(`Unable to resolve the hostname.`);
+    logger.error(`Unable to resolve the hostname.`);
   } else if (error.message.includes("ERR_INTERNET_DISCONNECTED")) {
-    logger.info(`Internet connection not available.`);
+    logger.error(`Internet connection not available.`);
   } else {
-    logger.info(error.message);
+    logger.error(error.message);
   }
 };
 
