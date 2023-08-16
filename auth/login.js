@@ -6,6 +6,7 @@ const logger = require("../logger/logger");
 const getClientIPAddress = require("../utils/ipUtils");
 const s_login = require("../scraper/s_login");
 const User = require("../memory_db/user");
+const handleError = require("../utils/errorHandler");
 
 const secret_key = process.env.JWT_SECRET;
 const expiresIn = process.env.JWT_EXPIRES_IN;
@@ -46,7 +47,7 @@ const login = async (request, response) => {
       }
     }
   } catch (error) {
-    logger.error(error);
+    handleError(error);
   }
 };
 
