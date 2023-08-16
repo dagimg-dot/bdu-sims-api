@@ -9,13 +9,13 @@ const sendResult = (result, response, pageType, setFunc) => {
       response.status(401).json({
         error: {
           message: "Unauthorized",
-        }
+        },
       });
     } else {
       response.status(500).json({
         error: {
           message: "Internal Server Error",
-        }
+        },
       });
     }
   }
