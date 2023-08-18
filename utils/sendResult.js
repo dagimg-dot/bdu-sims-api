@@ -10,7 +10,6 @@ const sendResult = (
     if (result !== null) {
       setFunc(result); // This is a callback
       if (request.query) {
-        console.log("with query");
         queryFunc(request, response, result);
       } else {
         response.status(200).json({
