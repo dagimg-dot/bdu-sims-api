@@ -29,8 +29,9 @@ const status_detail = async (request, response) => {
   } else {
     const result = await s_status_detail(request);
     sendResult(
-      result,
+      request,
       response,
+      result,
       Pages.DETAIL_STATUS,
       () => user.setDetailStatus
     );

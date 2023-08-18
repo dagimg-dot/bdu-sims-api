@@ -21,7 +21,7 @@ const courses = async (request, response) => {
     });
   } else {
     const result = await s_grades(request);
-    sendResult(result, response, Pages.GRADES, () => user.setGrades);
+    sendResult(request, response, result, Pages.GRADES, () => user.setGrades);
   }
 };
 

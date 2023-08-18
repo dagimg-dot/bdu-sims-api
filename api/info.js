@@ -21,7 +21,7 @@ const info = async (request, response) => {
     });
   } else {
     const result = await s_info(request);
-    sendResult(result, response, Pages.INFO, () => user.setInfo);
+    sendResult(request, response, result, Pages.INFO, () => user.setInfo);
   }
 };
 

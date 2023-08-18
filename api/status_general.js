@@ -22,8 +22,9 @@ const status_general = async (request, response) => {
   } else {
     const result = await s_status_general(request);
     sendResult(
-      result,
+      request,
       response,
+      result,
       Pages.GENERAL_STATUS,
       () => user.setGeneralStatus
     );
