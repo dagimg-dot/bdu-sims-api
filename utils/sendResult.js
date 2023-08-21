@@ -8,13 +8,21 @@ const sendResult = (
 ) => {
   if (!response.headersSent) {
     if (result !== null) {
-      setFunc(result); // This is a callback
-      if (request.query) {
-        queryFunc(request, response, result);
-      } else {
-        response.status(200).json({
-          [pageType]: result,
+      // This is for grades endpoint, no grades available error
+      if (result.error) {
+        // TODO: change the status code
+        response.status(400).json({
+          error: result.error,
         });
+      } else {
+        setFunc(result); // This is a callback
+        if (request.query) {
+          queryFunc(request, response, result);
+        } else {
+          response.status(200).json({
+            [pageType]: result,
+          });
+        }
       }
     } else if (result === null) {
       response.status(401).json({
