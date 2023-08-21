@@ -1,5 +1,5 @@
 const logger = require("../logger/logger");
-const getClientIPAddress = require("../utils/ipUtils");
+const getClientIPAddress = require("../utils/IPHandler");
 const s_logout = require("../scraper/s_logout");
 
 const logout = async (request, response) => {

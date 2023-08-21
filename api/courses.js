@@ -1,5 +1,5 @@
 const logger = require("../logger/logger");
-const getClientIPAddress = require("../utils/ipUtils");
+const getClientIPAddress = require("../utils/IPHandler");
 const s_courses = require("../scraper/s_courses");
 const User = require("../memory_db/user");
 const getUsername = require("../utils/usernameHandler");

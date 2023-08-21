@@ -3,7 +3,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const logger = require("../logger/logger");
-const getClientIPAddress = require("../utils/ipUtils");
+const getClientIPAddress = require("../utils/IPHandler");
 const s_login = require("../scraper/s_login");
 const User = require("../memory_db/user");
 const handleError = require("../utils/errorHandler");
