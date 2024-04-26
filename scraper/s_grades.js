@@ -4,7 +4,7 @@ const User = require("../memory_db/user");
 const { Pages, Url } = require("../utils/types");
 const getUsername = require("../utils/usernameHandler");
 
-const courses = async (req) => {
+const grades = async (req) => {
   const username = getUsername(req).username;
 
   const browser = await browserPool.getBrowserInstance(username);
@@ -54,4 +54,4 @@ const courses = async (req) => {
   }
 };
 
-module.exports = courses;
+module.exports = grades;
