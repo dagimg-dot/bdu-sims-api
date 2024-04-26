@@ -1,6 +1,6 @@
 const browserPool = require("../utils/browser");
 const User = require("../memory_db/user");
-const handleError = require("../utils/errorHandler");
+const handleError = require("../utils/errorHandler").handleError;
 const Url = require("../utils/types").Url;
 
 const login = async (credentials) => {

@@ -4,10 +4,8 @@ const login = require("./auth/login");
 const logout = require("./auth/logout");
 const logger = require("./logger/logger");
 const courses = require("./api/courses");
-const grades = require("./api/grades");
 const statusGeneral = require("./api/status_general");
 const statusDetail = require("./api/status_detail");
-const info = require("./api/info");
 const authenticationMiddleware = require("./middleware/authMiddleware");
 const User = require("./memory_db/user");
 const timeoutHandler = require("./utils/timeOutHandler");
@@ -42,8 +40,6 @@ app.get(
   authenticationMiddleware,
   statusDetail
 );
-
-app.get("/api/info", authenticationMiddleware, info);
 
 app.use(undefinedRouteHandler);
 

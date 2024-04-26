@@ -28,4 +28,10 @@ const sendResult = (response, result, pageType) => {
   }
 };
 
-module.exports = sendResult;
+const cacheResult = (result, cacheFunc) => {
+  if (result !== null) {
+    cacheFunc(result);
+  }
+};
+
+module.exports = { sendResult, cacheResult };

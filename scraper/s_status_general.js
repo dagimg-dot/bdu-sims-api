@@ -24,12 +24,13 @@ const status = async (req) => {
       await curriculumInput.click();
 
       await page.waitForSelector(
-        "#dx-2d369e0b-b555-a5ce-2467-df58ad3edb1d > div.dx-scrollable-wrapper > div > div.dx-scrollable-content > div.dx-scrollview-content.dx-wrap-item-text > div"
+        "div.dx-scrollable-wrapper > div > div.dx-scrollable-content > div.dx-scrollview-content.dx-wrap-item-text > div > div"
       );
 
-      const curriculumOption = await page.$("#dx-2d369e0b-b555-a5ce-2467-df58ad3edb1d > div.dx-scrollable-wrapper > div > div.dx-scrollable-content > div.dx-scrollview-content.dx-wrap-item-text > div")
+      const curriculumOption = await page.$(
+        "div.dx-scrollable-wrapper > div > div.dx-scrollable-content > div.dx-scrollview-content.dx-wrap-item-text > div > div"
+      );
 
-      console.log("curriculumOption: ", curriculumOption);
       await curriculumOption.click();
 
       await page.waitForTimeout(2000);
@@ -46,7 +47,7 @@ const status = async (req) => {
 
           return {
             academicyear: tds[1].innerText,
-            batch: tds[2].innerText,
+            year: tds[2].innerText,
             semester: tds[3].innerText,
             registrationDate: tds[4].innerText,
             registrationCondition: tds[6].innerText,

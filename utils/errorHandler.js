@@ -10,4 +10,12 @@ const handleError = (error) => {
   }
 };
 
-module.exports = handleError;
+const handleUnauthorized = (response) => {
+  response.status(401).json({
+    error: {
+      message: "Unauthorized",
+    },
+  });
+};
+
+module.exports = { handleUnauthorized, handleError };
