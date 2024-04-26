@@ -1,19 +1,15 @@
 const Pages = {
-    INFO: 'info',
     COURSES: 'courses',
-    GRADES: 'grades',
     GENERAL_STATUS: 'generalStatus',
     DETAIL_STATUS: 'detailStatus'
 }
 
-const BASE_URL = 'https://studentinfo.bdu.edu.et' 
+const BASE_URL = 'https://studentportal.bdu.edu.et' 
 
 const Url = {
-    LOGIN: `${BASE_URL}/login.aspx`,
-    INFO: `${BASE_URL}`,
-    COURSES: `${BASE_URL}/MyCourses.aspx`,
-    GRADES: `${BASE_URL}/MyGrades.aspx`,
-    STATUS: `${BASE_URL}/MyStatus.aspx`
+    LOGIN: `${BASE_URL}/Account/Login`,
+    STATUS: `${BASE_URL}/Report/StudentLevel/AcademicSumamry`,
+    COURSES: `${BASE_URL}/Report/StudentLevel/RemainingCoursesSummary`,
 }
 
 module.exports = { Pages, Url };
