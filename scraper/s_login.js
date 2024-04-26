@@ -14,18 +14,18 @@ const login = async (credentials) => {
 
     await page.goto(Url.LOGIN);
 
-    const username = await page.$("#dnn_ctr_login_login_dnn_txtusername");
+    const username = await page.$("#Input_UserName");
     await username.type(credentials.username);
 
-    const password = await page.$("#dnn_ctr_login_login_dnn_txtpassword");
+    const password = await page.$("#Input_Password");
     await password.type(credentials.password);
 
-    const login = await page.$("#dnn_ctr_login_login_dnn_cmdlogin");
-    await login.click();
+    const login = await page.$x("/html/body/div[1]/div[2]/div/div/div[2]/div[2]/div[1]/div/div[1]/div[2]/div[1]/div/div/div/section/form/div[4]/button");
+    await login[0].click();
 
     await page.waitForNavigation();
 
-    if ((await page.$("#dnn_dnnuser_cmdregister")) != null) {
+    if ((await page.$x("/html/body/div[1]/div[1]/div/div/div[3]/div/div/div/div/div/table/tbody/tr/td[1]/div/label"))[0] != null) {
       return true;
     } else {
       await browser.close();
