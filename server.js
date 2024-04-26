@@ -11,7 +11,7 @@ const info = require("./api/info");
 const authenticationMiddleware = require("./middleware/authMiddleware");
 const User = require("./memory_db/user");
 const timeoutHandler = require("./utils/timeOutHandler");
-const undefinedRouteHandler = require("./utils/undefinedRouteHandler")
+const undefinedRouteHandler = require("./utils/undefinedRouteHandler");
 
 const app = express();
 const port = process.env.EXPRESS_PORT;
@@ -23,8 +23,10 @@ app.use(timeoutHandler);
 
 // clear the users cache every 5 minutes
 setInterval(() => {
-  User.clear();
-  logger.info("Users data cleared");
+  if (User.users.length != 0) {
+    User.clear();
+    logger.info("Users data cleared");
+  }
 }, 5 * 60 * 1000);
 
 app.post("/auth/login", login);
@@ -32,8 +34,6 @@ app.post("/auth/login", login);
 app.get("/auth/logout", authenticationMiddleware, logout);
 
 app.get("/api/courses", authenticationMiddleware, courses);
-
-app.get("/api/grades", authenticationMiddleware, grades);
 
 app.get("/api/status/general", authenticationMiddleware, statusGeneral);
 
@@ -45,7 +45,7 @@ app.get(
 
 app.get("/api/info", authenticationMiddleware, info);
 
-app.use(undefinedRouteHandler)
+app.use(undefinedRouteHandler);
 
 //Initialises the express server on the port 3000
 app.listen(port, () =>
