@@ -18,37 +18,50 @@ const status = async (req) => {
     try {
       await page.goto(Url.STATUS);
 
+      const curriculumInput = await page.$(
+        "#ddlCurriculum > div.dx-dropdowneditor-input-wrapper.dx-selectbox-container > div > div.dx-texteditor-input-container > input"
+      );
+      await curriculumInput.click();
+
+      await page.waitForSelector(
+        "#dx-2d369e0b-b555-a5ce-2467-df58ad3edb1d > div.dx-scrollable-wrapper > div > div.dx-scrollable-content > div.dx-scrollview-content.dx-wrap-item-text > div"
+      );
+
+      const curriculumOption = await page.$("#dx-2d369e0b-b555-a5ce-2467-df58ad3edb1d > div.dx-scrollable-wrapper > div > div.dx-scrollable-content > div.dx-scrollview-content.dx-wrap-item-text > div")
+
+      console.log("curriculumOption: ", curriculumOption);
+      await curriculumOption.click();
+
+      await page.waitForTimeout(2000);
+
       const rows = await page.evaluate(() => {
-        let count = 0;
-        // TODO: make sure the try catch catches all the relevant errors 
+        // TODO: make sure the try catch catches all the relevant errors
         // or should i handle each error separately
         const rowElements = document.querySelectorAll(
-          "#dnn_ctr397_ViewMyStatus_reportviewer11_grid2_ob_grid2BodyContainer > div.ob_gBICont > table > tbody > tr"
+          "#RegGrid > div > div.dx-datagrid-rowsview.dx-last-row-border.dx-scrollable.dx-visibility-change-handler.dx-scrollable-both.dx-scrollable-simulated > div > div > div.dx-scrollable-content > div > table > tbody > tr"
         );
+
         const rowsData = Array.from(rowElements).map((rowElement) => {
           const tds = rowElement.querySelectorAll("td");
-          if (count % 2 == 0) {
-            count++;
-            return {
-              AcYear: tds[2].querySelector("div > div").innerText,
-              Year: tds[3].querySelector("div > div").innerText,
-              Semester: tds[4].querySelector("div > div").innerText,
-              RegistrationDate: tds[5].querySelector("div > div").innerText,
-              RegType: tds[7].querySelector("div > div").innerText,
-              SGPA: tds[9].querySelector("div > div").innerText,
-              CGPA: tds[10].querySelector("div > div").innerText,
-              PrevStatus: tds[11].querySelector("div > div").innerText,
-              FinalStatus: tds[12].querySelector("div > div").innerText,
-            };
-          } else {
-            count++;
-            return "detailGrade";
-          }
+
+          return {
+            academicyear: tds[1].innerText,
+            batch: tds[2].innerText,
+            semester: tds[3].innerText,
+            registrationDate: tds[4].innerText,
+            registrationCondition: tds[6].innerText,
+            sgpa: tds[7].innerText,
+            cgpa: tds[8].innerText,
+            prevStatus: tds[9].innerText,
+            finalStatus: tds[10].innerText,
+          };
         });
+
         return rowsData;
       });
 
-      const filteredRows = rows.filter((row) => row != "detailGrade");
+      const filteredRows = rows.filter((row) => row.academicyear != "");
+      console.log(filteredRows);
       return filteredRows;
     } catch (error) {
       handleError(error);
