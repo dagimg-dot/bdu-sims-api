@@ -4,7 +4,7 @@ class BrowserPool {
   constructor() {
     this.browserMap = new Map();
   }
-
+  
   async createBrowserInstance(username) {
     const browser = await puppeteer.launch({
       headless: false,

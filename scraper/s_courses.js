@@ -1,5 +1,5 @@
 const browserPool = require("../utils/browser");
-const handleError = require("../utils/errorHandler");
+const handleError = require("../utils/errorHandler").handleError;
 const User = require("../memory_db/user");
 const { Pages, Url } = require("../utils/types");
 const getUsername = require("../utils/usernameHandler");

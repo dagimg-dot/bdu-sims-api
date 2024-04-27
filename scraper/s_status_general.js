@@ -35,6 +35,14 @@ const status = async (req) => {
 
       await page.waitForTimeout(2000);
 
+      const noDataElement = await page.$(
+        "#studData > div > div.dx-datagrid-rowsview.dx-datagrid-nowrap.dx-empty.dx-scrollable.dx-visibility-change-handler.dx-scrollable-both.dx-scrollable-simulated > span"
+      );
+
+      if (noDataElement) {
+        throw new Error("No data found.");
+      }
+
       const rows = await page.evaluate(() => {
         // TODO: make sure the try catch catches all the relevant errors
         // or should i handle each error separately
@@ -66,6 +74,7 @@ const status = async (req) => {
       return filteredRows;
     } catch (error) {
       handleError(error);
+      throw error;
     }
   } else {
     return null;
