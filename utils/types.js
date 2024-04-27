@@ -12,4 +12,9 @@ const Url = {
   COURSES: `${BASE_URL}/Report/StudentLevel/RemainingCoursesSummary`,
 };
 
-module.exports = { Pages, Url };
+const RomanToNumber = {
+  I: 1,
+  II: 2,
+};
+
+module.exports = { Pages, Url, RomanToNumber };

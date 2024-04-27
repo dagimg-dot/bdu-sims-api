@@ -3,7 +3,8 @@ const getClientIPAddress = require("../utils/IPHandler");
 const s_status_detail = require("../scraper/s_status_detail");
 const User = require("../memory_db/user");
 const getUsername = require("../utils/usernameHandler");
-const sendResult = require("../utils/sendResult");
+const { sendResult, cacheResult } = require("../utils/utilityFunc");
+const { handleUnauthorized, sendError } = require("../utils/errorHandler");
 const Pages = require("../utils/types").Pages;
 
 const status_detail = async (request, response) => {
@@ -16,7 +17,12 @@ const status_detail = async (request, response) => {
 
   const username = getUsername(request).username;
   const user = User.getUser(username);
-  user.setRequested(Pages.DETAIL_STATUS);
+  if (!user) {
+    handleUnauthorized(response);
+    return;
+  } else {
+    user.setRequested(Pages.DETAIL_STATUS);
+  }
 
   // TODO: Caching will be implemented in the future.
 
@@ -27,14 +33,13 @@ const status_detail = async (request, response) => {
       },
     });
   } else {
-    const result = await s_status_detail(request);
-    sendResult(
-      request,
-      response,
-      result,
-      Pages.DETAIL_STATUS,
-      () => user.setDetailStatus
-    );
+    try {
+      const result = await s_status_detail(request);
+      cacheResult(result, user.setDetailStatus.bind(user));
+      sendResult(response, result, Pages.DETAIL_STATUS);
+    } catch (error) {
+      sendError(response, error);
+    }
   }
 };
 

@@ -13,9 +13,18 @@ const handleError = (error) => {
 const handleUnauthorized = (response) => {
   response.status(401).json({
     error: {
+      status: "failed",
       message: "Unauthorized",
     },
   });
 };
 
-module.exports = { handleUnauthorized, handleError };
+const sendError = (response, error) => {
+  response.status(500).json({
+    error: {
+      message: error.message,
+    },
+  });
+};
+
+module.exports = { handleUnauthorized, handleError, sendError };

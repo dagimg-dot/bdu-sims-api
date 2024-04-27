@@ -15,7 +15,7 @@ const sendResult = (response, result, pageType) => {
     } else if (result === null) {
       response.status(401).json({
         error: {
-          message: "Unauthorized",
+          message: "Unkown error occurred. Please try again.",
         },
       });
     } else {
