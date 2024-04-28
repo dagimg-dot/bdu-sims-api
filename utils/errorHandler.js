@@ -22,7 +22,7 @@ const handleUnauthorized = (response) => {
 const sendError = (response, error) => {
   response.status(500).json({
     error: {
-      message: error.message,
+      message: "Internal Server Error",
     },
   });
 };

@@ -49,7 +49,6 @@ const status = async (req) => {
 
           const checkYear = () => {
             const tds = lastElement.querySelectorAll("td");
-            console.log(tds[2].innerText, tds[3].innerText);
             const maxYear = tds[2].innerText;
             const maxSemester = tds[3].innerText;
             if (

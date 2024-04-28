@@ -5,7 +5,7 @@ const User = require("../memory_db/user");
 const getUsername = require("../utils/usernameHandler");
 const Pages = require("../utils/types").Pages;
 const { sendResult, cacheResult } = require("../utils/utilityFunc");
-const { handleUnauthorized } = require("../utils/errorHandler");
+const { handleUnauthorized, sendError } = require("../utils/errorHandler");
 
 const status_general = async (request, response) => {
   logger.info(

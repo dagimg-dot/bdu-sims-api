@@ -1,5 +1,5 @@
 const browserPool = require("../utils/browser");
-const handleError = require("../utils/errorHandler");
+const { handleError } = require("../utils/errorHandler");
 const User = require("../memory_db/user");
 const { Pages, Url } = require("../utils/types");
 const getUsername = require("../utils/usernameHandler");
@@ -68,9 +68,7 @@ const status = async (req) => {
 
         return rowsData;
       });
-
       const filteredRows = rows.filter((row) => row.academicyear != "");
-      console.log(filteredRows);
       return filteredRows;
     } catch (error) {
       handleError(error);
