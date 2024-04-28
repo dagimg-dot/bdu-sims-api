@@ -31,7 +31,7 @@ app.post("/auth/login", login);
 
 app.get("/auth/logout", authenticationMiddleware, logout);
 
-app.get("/api/courses", authenticationMiddleware, courses);
+app.get("/api/remaining-courses", authenticationMiddleware, courses);
 
 app.get("/api/status/general", authenticationMiddleware, statusGeneral);
 
