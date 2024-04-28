@@ -10,10 +10,11 @@ const authenticationMiddleware = require("./middleware/authMiddleware");
 const User = require("./memory_db/user");
 const timeoutHandler = require("./utils/timeOutHandler");
 const undefinedRouteHandler = require("./utils/undefinedRouteHandler");
+const { getserverIPAddress } = require("./utils/IPHandler");
 
 const app = express();
 const port = process.env.EXPRESS_PORT;
-const ipAddress = "localhost";
+const ipAddress = getserverIPAddress() || "localhost";
 
 app.use(express.json());
 
