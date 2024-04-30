@@ -26,11 +26,12 @@ const login = async (request, response) => {
       password: password,
     };
 
-    const isValidated = await s_login(credentials);
+    const { isValidated, stuName } = await s_login(credentials);
     if (isValidated === true) {
       const token = generateToken(username);
       response.header("Authorization", token);
-      response.status(200).json({ status: "success" });
+      console.log("Student Name: ", stuName);
+      response.status(200).json({ status: "success", studentName: stuName });
     } else if (isValidated === false) {
       response
         .status(401)
