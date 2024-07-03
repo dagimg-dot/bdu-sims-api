@@ -30,7 +30,6 @@ const login = async (request, response) => {
     if (isValidated === true) {
       const token = generateToken(username);
       response.header("Authorization", token);
-      console.log("Student Name: ", stuName);
       response.status(200).json({ status: "success", studentName: stuName });
     } else if (isValidated === false) {
       response
