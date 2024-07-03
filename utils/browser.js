@@ -7,7 +7,7 @@ class BrowserPool {
   
   async createBrowserInstance(username) {
     const browser = await puppeteer.launch({
-      headless: false,
+      headless: "new",
       // args: ["--no-sandbox", "--disable-setuid-sandbox"],
     });
 
