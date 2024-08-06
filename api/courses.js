@@ -4,9 +4,8 @@ const s_courses = require("../scraper/s_courses");
 const User = require("../memory_db/user");
 const getUsername = require("../utils/usernameHandler");
 const Pages = require("../utils/types").Pages;
-const sendResult = require("../utils/utilityFunc").sendResult;
-const cacheResult = require("../utils/utilityFunc").cacheResult;
-const handleUnauthorized = require("../utils/errorHandler").handleUnauthorized;
+const { sendResult, cacheResult } = require("../utils/utilityFunc");
+const { handleUnauthorized, sendError } = require("../utils/errorHandler");
 
 const courses = async (request, response) => {
   logger.info(
@@ -22,20 +21,25 @@ const courses = async (request, response) => {
     user.setRequested(Pages.COURSES);
   }
 
-  if (user.getCourses() !== null) {
-    const result = user.getCourses();
-    response.status(200).json({
-      [Pages.COURSES]: result,
-    });
-  } else {
-    try {
-      const result = await s_courses(request);
-      cacheResult(result, user.setCourses.bind(user));
-      sendResult(response, result, Pages.COURSES);
-    } catch (error) {
-      sendError(response, error);
-    }
-  }
+  // if (user.getCourses() !== null) {
+  //   const result = user.getCourses();
+  //   response.status(200).json({
+  //     [Pages.COURSES]: result,
+  //   });
+  // } else {
+  //   try {
+  //     const result = await s_courses(request);
+  //     cacheResult(result, user.setCourses.bind(user));
+  //     sendResult(response, result, Pages.COURSES);
+  //   } catch (error) {
+  //     sendError(response, error);
+  //   }
+  // }
+
+  response.status(200).json({
+    sucess: false,
+    message: "This endpoint is currently unavailable.",
+  });
 };
 
 module.exports = courses;
