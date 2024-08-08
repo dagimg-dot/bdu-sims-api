@@ -1,0 +1,27 @@
+services:
+  bdu-sims-api:
+    container_name: bdu-sims-api
+    ports:
+      - "${EXPRESS_PORT}:${EXPRESS_PORT}"
+    build:
+      dockerfile: Dockerfile
+      context: .
+      args:
+        - EXPRESS_PORT=${EXPRESS_PORT}
+    restart: always
+    environment:
+      - EXPRESS_PORT=${EXPRESS_PORT}
+      - TIMEOUT=${TIMEOUT}
+      - JWT_SECRET=${JWT_SECRET}
+      - JWT_EXPIRES_IN=${JWT_EXPIRES_IN}
+      - CHROME_EXECUTABLE_PATH=${CHROME_EXECUTABLE_PATH}
+    develop:
+      watch:
+        - action: sync
+          path: ./
+          target: /usr/src/app
+          ignore:
+            - .git
+            - node_modules
+        - action: rebuild
+          path: package.json

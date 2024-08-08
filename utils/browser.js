@@ -4,16 +4,22 @@ class BrowserPool {
   constructor() {
     this.browserMap = new Map();
   }
-  
+
   async createBrowserInstance(username) {
     try {
-    const browser = await puppeteer.launch({
-      headless: "new",
-      // args: ["--no-sandbox", "--disable-setuid-sandbox"],
-    });
-
-    this.browserMap.set(username, browser);
-    return browser;
+      const browser = await puppeteer.launch({
+        headless: "new",
+        args: [
+          "--no-sandbox",
+          "--disable-setuid-sandbox",
+          // This will write shared memory files into /tmp instead of /dev/shm,
+          // because Docker’s default for /dev/shm is 64MB
+          "--disable-dev-shm-usage",
+        ],
+        executablePath: process.env.CHROME_EXECUTABLE_PATH,
+      });
+      this.browserMap.set(username, browser);
+      return browser;
     } catch (error) {
       console.error("Error: launching browser", error);
       return null;
