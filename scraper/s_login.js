@@ -53,6 +53,7 @@ const login = async (credentials) => {
     const user = User.getUser(credentials.username);
     User.closeInstance(user);
     handleError(error);
+    return { isValidated: false, stuName: null };
   }
 };
 
