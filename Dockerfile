@@ -28,6 +28,4 @@ RUN --mount=type=bind,source=package.json,target=package.json \
 
 COPY . .
 
-EXPOSE 3000
-
 CMD ["nodemon", "server.js"]
